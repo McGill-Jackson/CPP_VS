@@ -126,15 +126,15 @@ void printVTable(vfptr vfTable[]) {
 		++fptr;
 	}
 }
-void PrintVTable(vfptr vTable[]) {
-	cout << "虚表地址" << vTable << endl;
-	for (int i = 0; vTable[i] != nullptr; ++i) {
-		printf("第%d个虚函数地址 :0x%p\n", i, vTable[i]);
-		vfptr f = vTable[i];
-		f();
-	}
-	cout << endl;
-}
+//void PrintVTable(vfptr vTable[]) {
+//	cout << "虚表地址" << vTable << endl;
+//	for (int i = 0; vTable[i] != nullptr; ++i) {
+//		printf("第%d个虚函数地址 :0x%p\n", i, vTable[i]);
+//		vfptr f = vTable[i];
+//		f();
+//	}
+//	cout << endl;
+//}
 void Test() {
 	Base1 b1;
 	Base2 b2;
