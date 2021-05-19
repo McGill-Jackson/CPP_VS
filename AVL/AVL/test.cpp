@@ -25,6 +25,8 @@ public:
 	bool Insert(const T& val);
 	void _validation() {
 		_inOrder(_root);
+		cout << endl;
+		cout << _IsBalanceTree(_root) << endl;
 	}
 private:
 	void _RotateL(PNode pParent);
@@ -33,6 +35,7 @@ private:
 	void _RotateLR(PNode pParent);
 	void _inOrder(PNode pParent);
 	int _Height(PNode pRoot);
+	bool _IsBalanceTree(PNode pRoot);
 	PNode _root = nullptr;
 };
 
@@ -188,7 +191,24 @@ void AVLTree<T>::_inOrder(PNode pRoot) {
 template <class T>//Height
 int AVLTree<T>::_Height(PNode pRoot) {
 	if (pRoot == nullptr)return 0;
+	int left = _Height(pRoot->_left);
+	int right = _Height(pRoot->_right);
+	if (left == right)return left + 1;
+	else if (left > right)return left + 1;
+	else return right + 1;
+}
+template <class T>//is_bf
+bool AVLTree<T>::_IsBalanceTree(PNode pRoot) {
+	if (pRoot == nullptr)return true;
 
+	int leftHeight = _Height(pRoot->_left);
+	int rightHeight = _Height(pRoot->_right);
+	int diff = rightHeight - leftHeight;
+
+	if (diff != pRoot->_bf || (diff > 1 || diff < -1))
+		return false;
+
+	return _IsBalanceTree(pRoot->_left) && _IsBalanceTree(pRoot->_right);
 }
 void test() {
 	AVLTree<int> avl;
