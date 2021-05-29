@@ -140,67 +140,126 @@
 //    return 0;
 //}
 #include <iostream>
+#include <vector>
 using namespace std;
 
-struct NR_Node {
-	NR_Node(char node = 0,int num = 0)
-		:_node(node)
-		,_num(num)
-	{}
-	char _node;
-	int _num;
-};
-
-class NR_string {
-	typedef NR_Node node;
+//struct NR_Node {
+//	NR_Node(char node = 0,int num = 0)
+//		:_node(node)
+//		,_num(num)
+//	{}
+//	char _node;
+//	int _num;
+//};
+//
+//class NR_string {
+//	typedef NR_Node node;
+//public:
+//	NR_string(int size = 0)
+//		:_size(size)
+//	{}
+//
+//	void first_char(string original) {
+//		for (int i = 0; i < original.size(); ++i) {
+//			int j = 0;
+//			for (; j <= _size; ++j) {
+//				if (original[i] != _ary[j]._node)
+//					continue;
+//				else {
+//					++_ary[j]._num;
+//					break;
+//				}
+//			}
+//			if (j > _size) {
+//				_ary[j]._node = original[i];
+//				++_ary[j]._num;
+//				++_size;
+//			}
+//		}
+//		if (_size != 0) {
+//			int count = 0;
+//			for (int i = 0; i <= _size; ++i) {
+//				if (_ary[i]._num == 1) {
+//					cout << _ary[i]._node;
+//					++count;
+//					break;
+//				}
+//			}
+//			if (count == 0) {
+//				cout << "-1";
+//			}
+//			cout << endl;
+//		}
+//	}
+//private:
+//	node _ary[128];
+//	int _size;
+//};
+//
+//int main() {
+//	string st;
+//	while (cin>>st) {
+//		NR_string s;
+//		s.first_char(st);
+//		st.clear();
+//	}
+//	return 0;
+//}
+class Gift {
 public:
-	NR_string(int size = 0)
-		:_size(size)
-	{}
-
-	void first_char(string original) {
-		for (int i = 0; i < original.size(); ++i) {
-			int j = 0;
-			for (; j <= _size; ++j) {
-				if (original[i] != _ary[j]._node)
-					continue;
-				else {
-					++_ary[j]._num;
-					break;
-				}
-			}
-			if (j > _size) {
-				_ary[j]._node = original[i];
-				++_ary[j]._num;
-				++_size;
-			}
-		}
-		if (_size != 0) {
-			int count = 0;
-			for (int i = 0; i <= _size; ++i) {
-				if (_ary[i]._num == 1) {
-					cout << _ary[i]._node;
-					++count;
-					break;
-				}
-			}
-			if (count == 0) {
-				cout << "-1";
-			}
-			cout << endl;
-		}
-	}
-private:
-	node _ary[128];
-	int _size;
+    int getValue(vector<int> gifts, int n) {
+        struct Node {
+            Node(int money = 0, int sum = 0)
+                :_money(money)
+                , _sum(sum)
+            {}
+            int _money;
+            int _sum;
+        };
+        struct Ptr {
+            Ptr(int size = 0)
+                :_size(size)
+            {}
+            Node _ptr[1024];
+            int _size;
+        };
+        Ptr ptr;
+        vector<int>::iterator it = gifts.begin();
+        while (it != gifts.end()) {
+            int i = 0;
+            for (; i <= ptr._size; i++) {
+                if (*it == ptr._ptr[i]._money) {
+                    ++ptr._ptr[i]._sum;
+                }
+            }
+            if (i > ptr._size) {
+                ptr._ptr[i]._money = *it;
+                ++ptr._ptr[i]._sum;
+                ++ptr._size;
+            }
+            ++it;
+        }
+        int max = 0;
+        int money = 0;
+        for (int i = 0; i <= ptr._size; ++i) {
+            if (ptr._ptr[i]._sum > max) {
+                max = ptr._ptr[i]._sum;
+                money = ptr._ptr[i]._money;
+            }
+        }
+        if (max > (n / 2)) {
+            return money;
+        }
+        else {
+            return 0;
+        }
+    }
 };
 
 int main() {
-	string st;
-	while (cin>>st) {
-		NR_string s;
-		s.first_char(st);
-		st.clear();
-	}
-	return 0;
+    Gift gift;
+    vector<int> ary = { 1,2,3,2,2 };
+    int n = 5;
+    cout<<gift.getValue(ary, n);
+    return 0;
 }
