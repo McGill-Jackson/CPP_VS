@@ -8,11 +8,11 @@ enum State {
 	E
 };
 struct PCB {
-	int _name;
-	PCB* _next_p;
-	int _time;
-	int _priority;
-	State _state;
+	int _name;//进程名
+	PCB* _next_p;//下一进程的地址
+	int _time;//要求运行时间
+	int _priority;//优先级
+	State _state;//状态(是否结束)
 
 	PCB(int name = 0, int time = 0, int priority = 0)
 		:_name(name)
@@ -39,6 +39,7 @@ private:
 	pPCB _header;
 	int _PCB_n;
 };
+//创建列表
 void List_PCB::Creat_List(int n) {
 	for (int i = n; i > 0; i--) {
 		//创建PCB
@@ -56,6 +57,7 @@ void List_PCB::Creat_List(int n) {
 		Sleep(1000);
 	}
 }
+//寻找新的队首进程
 void List_PCB::Find_location(pPCB p) {
 	if (_header->_next_p == nullptr) { 
 		_header->_next_p = p;
@@ -75,6 +77,7 @@ void List_PCB::Find_location(pPCB p) {
 		}
 	}
 }
+//开始调度
 void List_PCB::scheduling() {
 	pPCB cur = _header->_next_p;
 	while (cur) {
