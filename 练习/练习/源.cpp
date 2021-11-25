@@ -1,8 +1,31 @@
-#include <iostream>
+
 #include <list>
 #include <string>
 #include <vector>
+#include <iostream>
 using namespace std;
+/////////////////////////////青蛙跳台阶////////////////////////////////////////
+//class Solution {//这个青蛙可以跳1~n行
+//public:
+//	unsigned long long jumpFloor(int number) {
+//		if (number <= 2)return number;
+//		unsigned long long pre2 = 2;
+//		for (int i = 3; i <= number; ++i) {
+//			unsigned long long count = 2*pre2;
+//			pre2 = count;
+//		}
+//		return pre2;
+//	}
+//};
+//
+//int main() {
+//	int number = 0;
+//	Solution s;
+//	while (cin >> number) {
+//		cout << s.jumpFloor(number) << endl;
+//	}
+//	return 0;
+//}
 //////////////////////////////////////删除有序数组中的重复项//////////////////////////////
 //class Solution {
 //public:
